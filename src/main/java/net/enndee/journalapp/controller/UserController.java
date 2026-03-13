@@ -5,6 +5,8 @@ import net.enndee.journalapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,24 +19,33 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return userService.getAllUsers();
     }
 
-    @PostMapping
-    public void createUser(@RequestBody User user){
-        userService.saveUser(user);
-    }
 
     @PutMapping
-    public ResponseEntity<?> updateUser(@RequestBody User user){
-        User isUser = userService.findByUsername(user.getUsername());
-        if(isUser !=null){
-            isUser.setUsername(user.getUsername());
-            isUser.setPassword(user.getPassword());
-            userService.saveUser(isUser);
-            return ResponseEntity.status(HttpStatus.CREATED).body("User Updated");
-        }
-        return new ResponseEntity<>("User not found",HttpStatus.NO_CONTENT);
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+
+        User userInDB = userService.findByUsername(username);
+
+        userInDB.setUsername(user.getUsername());
+        userInDB.setPassword(user.getPassword());
+        userService.saveNewUser(userInDB);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        //        User isUser = userService.findByUsername(user.getUsername());
+//        if (isUser != null) {
+//            isUser.setUsername(user.getUsername());
+//            isUser.setPassword(user.getPassword());
+//            userService.saveUser(isUser);
+//            return ResponseEntity.status(HttpStatus.CREATED).body("User Updated");
+//        }
+//        return new ResponseEntity<>("User not found", HttpStatus.NO_CONTENT);
+
     }
 }

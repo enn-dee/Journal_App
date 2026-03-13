@@ -11,20 +11,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document (collection = "users")
+@Document(collection = "users")
 @Data
 public class User {
-@Id
-private ObjectId id;
+    @Id
+    private ObjectId id;
 
-@Indexed(unique = true)
-@NonNull
-private String username;
-@NonNull
-private String password;
+    @Indexed(unique = true)
+    @NonNull
+    private String username;
+    @NonNull
+    private String password;
 
-@DBRef // will take reference of JournalEntry
-private List<JournalEntry> journalEntries = new ArrayList<>();
-
+    @DBRef // will take reference of JournalEntry
+    private List<JournalEntry> journalEntries = new ArrayList<>();
+    private List<String> roles;
 }
 
