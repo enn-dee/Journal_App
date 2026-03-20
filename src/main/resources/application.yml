@@ -1,0 +1,9 @@
+# this will run as default profile
+
+spring:
+  profiles:
+    active: dev
+
+#logging:
+#  level:
+#    root: ERROR
