@@ -1,8 +1,13 @@
 # this will run as default profile
 
-spring:
-  profiles:
-    active: dev
+
+chuck:
+  norris:
+#    api: https://api.chucknorris.io/jokes/random
+     api: https://api.chucknorris.io/jokes/random?category={category}
+#spring:
+#  profiles:
+#    active: dev
 
 #logging:
 #  level:

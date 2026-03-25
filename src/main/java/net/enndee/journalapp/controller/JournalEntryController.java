@@ -1,5 +1,6 @@
 package net.enndee.journalapp.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.enndee.journalapp.entity.JournalEntry;
 import net.enndee.journalapp.entity.User;
 import net.enndee.journalapp.service.JournalEntryService;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 
 @RestController
+@Slf4j
 @RequestMapping("journal")
 public class JournalEntryController {
 
@@ -49,6 +51,7 @@ public class JournalEntryController {
             journalEntryService.saveEntry(myEntry);
             return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
         } catch (Exception e) {
+            log.error("Error ",e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
