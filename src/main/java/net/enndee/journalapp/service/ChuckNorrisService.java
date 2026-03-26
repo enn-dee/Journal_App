@@ -63,7 +63,7 @@ public class ChuckNorrisService {
 //        );
 
 
-        String API   = appCache.APP_CACHE.get("api").replace("{category}",""+allowedCategories.DEV.name().toLowerCase());
+        String API   = appCache.APP_CACHE.get("api").replace("{category}",            allowedCategories.CAREER.name().toLowerCase());
         ResponseEntity<ChuckNorrisResponse> chuckNorrisResponseResponseEntity = restTemplate.exchange(API, HttpMethod.GET, null, ChuckNorrisResponse.class);
         return chuckNorrisResponseResponseEntity.getBody();
     }
