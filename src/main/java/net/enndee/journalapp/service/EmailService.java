@@ -19,10 +19,10 @@ public class EmailService {
             mail.setTo(to);
             mail.setSubject(subject);
             mail.setText(body);
-
             javaMailSender.send(mail);
+//            log.info("Email sent");
         }catch (Exception e){
-            log.error("Error while sendEmail: "+ e);
+            log.error("Error while sendEmail: {}", String.valueOf(e));
         }
     }
 }

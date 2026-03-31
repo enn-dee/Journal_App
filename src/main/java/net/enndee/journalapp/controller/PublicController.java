@@ -25,10 +25,10 @@ public class PublicController {
         return new ResponseEntity<>("health-ok", HttpStatus.OK);
     }
 
-    @GetMapping("/Norris")
-    public ResponseEntity<String> getNorrisController() {
+    @GetMapping("/Norris/{category}")
+    public ResponseEntity<String> getNorrisController(@PathVariable String category) {
 
-        String msg = chuckNorrisService.getNorris().getValue();
+        String msg = chuckNorrisService.getNorris(category).getValue();
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
